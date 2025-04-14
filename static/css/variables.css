@@ -28,6 +28,7 @@
   --md-on-error: #FFFFFF;
   --md-success: #2E7D32;
   --md-on-success: #FFFFFF;
+  
 
   /* Typography */
   --md-font-display: 'Inter', sans-serif;
@@ -38,6 +39,12 @@
   --animation-fast: 0.2s;
   --animation-medium: 0.3s;
   --animation-slow: 0.5s;
+
+    /* Add new color themes */
+    --md-primary-blue: #1E88E5;
+    --md-on-primary-blue: #FFFFFF;
+    --md-primary-green: #43A047;
+    --md-on-primary-green: #FFFFFF;
 }
 
 [data-theme="dark"] {
@@ -70,4 +77,16 @@
   --md-on-error: #601410;
   --md-success: #66BB6A;
   --md-on-success: #0E3E10;
+}
+
+
+
+[data-theme="blue"] {
+  --md-primary: var(--md-primary-blue);
+  --md-on-primary: var(--md-on-primary-blue);
+}
+
+[data-theme="green"] {
+  --md-primary: var(--md-primary-green);
+  --md-on-primary: var(--md-on-primary-green);
 }

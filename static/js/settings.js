@@ -178,3 +178,19 @@
   // Load settings on startup
   window.addEventListener('DOMContentLoaded', loadSettings);
 })();
+
+(function() {
+  const themeSelect = document.getElementById('theme-select');
+
+  // Load saved theme or default to 'light'
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.body.dataset.theme = savedTheme;
+  themeSelect.value = savedTheme;
+
+  // Update theme when changed in settings
+  themeSelect.addEventListener('change', (event) => {
+    const newTheme = event.target.value;
+    document.body.dataset.theme = newTheme;
+    localStorage.setItem('theme', newTheme);
+  });
+})();
