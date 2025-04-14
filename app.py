@@ -10,8 +10,13 @@ from google.genai import types
 load_dotenv()
 
 app = Flask(__name__)
-# Enable CORS for all routes and origins
-CORS(app)
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Get API key with validation
 api_key = os.environ.get("GEMINI_API_KEY")

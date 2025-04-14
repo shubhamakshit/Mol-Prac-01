@@ -2,12 +2,12 @@
 (function() {
   // Store API settings
   let apiSettings = {
-    baseUrl: 'https://mol-prac-01.vercel.app/',
+    baseUrl: window.location.origin+"/",  // Remove trailing slash
   };
 
   // Function to generate compounds via API
   window.generateCompounds = async function() {
-    const baseUrl = localStorage.getItem('apiBaseUrl') || apiSettings.baseUrl;
+    const baseUrl = (localStorage.getItem('apiBaseUrl') || apiSettings.baseUrl).replace(/\/+$/, '');
 
     // Get selected functional groups
     const selectedGroups = [];
@@ -32,8 +32,10 @@
       const response = await fetch(`${baseUrl}/generate-compounds`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
+        mode: 'cors',
         body: JSON.stringify(requestData)
       });
 
