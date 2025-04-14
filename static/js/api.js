@@ -2,7 +2,7 @@
 (function() {
   // Store API settings
   let apiSettings = {
-    baseUrl: 'http://localhost:5000',
+    baseUrl: window.location.origin,
   };
 
   // Function to generate compounds via API
