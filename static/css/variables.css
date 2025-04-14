@@ -1,0 +1,73 @@
+:root {
+  /* Material Design 3 color system - Light theme */
+  --md-primary: #6750A4;
+  --md-on-primary: #FFFFFF;
+  --md-primary-container: #EADDFF;
+  --md-on-primary-container: #21005E;
+  --md-secondary: #625B71;
+  --md-on-secondary: #FFFFFF;
+  --md-secondary-container: #E8DEF8;
+  --md-on-secondary-container: #1E192B;
+  --md-tertiary: #7D5260;
+  --md-tertiary-container: #FFD8E4;
+  --md-on-tertiary: #FFFFFF;
+  --md-on-tertiary-container: #31111D;
+  --md-surface: #FFFBFE;
+  --md-surface-1: #F7F2FA;
+  --md-surface-2: #F3EDF7;
+  --md-surface-3: #EEE8F4;
+  --md-surface-4: #EAE4F1;
+  --md-surface-5: #E6E0ED;
+  --md-on-surface: #1C1B1F;
+  --md-surface-variant: #E7E0EC;
+  --md-on-surface-variant: #49454E;
+  --md-outline: #79747E;
+  --md-outline-variant: #CAC4D0;
+  --md-shadow: rgba(0, 0, 0, 0.15);
+  --md-error: #B3261E;
+  --md-on-error: #FFFFFF;
+  --md-success: #2E7D32;
+  --md-on-success: #FFFFFF;
+
+  /* Typography */
+  --md-font-display: 'Inter', sans-serif;
+  --md-font-body: 'Inter', sans-serif;
+  --md-font-code: 'JetBrains Mono', monospace;
+
+  /* Animation speeds */
+  --animation-fast: 0.2s;
+  --animation-medium: 0.3s;
+  --animation-slow: 0.5s;
+}
+
+[data-theme="dark"] {
+  /* Material Design 3 color system - Dark theme */
+  --md-primary: #D0BCFF;
+  --md-on-primary: #381E72;
+  --md-primary-container: #4F378B;
+  --md-on-primary-container: #EADDFF;
+  --md-secondary: #CCC2DC;
+  --md-on-secondary: #332D41;
+  --md-secondary-container: #4A4458;
+  --md-on-secondary-container: #E8DEF8;
+  --md-tertiary: #EFB8C8;
+  --md-tertiary-container: #633B48;
+  --md-on-tertiary: #492532;
+  --md-on-tertiary-container: #FFD8E4;
+  --md-surface: #1C1B1F;
+  --md-surface-1: #24232A;
+  --md-surface-2: #2B2930;
+  --md-surface-3: #322F35;
+  --md-surface-4: #39363F;
+  --md-surface-5: #403D46;
+  --md-on-surface: #E6E1E5;
+  --md-surface-variant: #49454F;
+  --md-on-surface-variant: #CAC4D0;
+  --md-outline: #938F99;
+  --md-outline-variant: #49454F;
+  --md-shadow: rgba(0, 0, 0, 0.3);
+  --md-error: #F2B8B5;
+  --md-on-error: #601410;
+  --md-success: #66BB6A;
+  --md-on-success: #0E3E10;
+}

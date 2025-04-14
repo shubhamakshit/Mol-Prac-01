@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IUPAC Compounds Viewer</title>
+  <!-- Improved Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <!-- Split CSS files - moved to static directory -->
+  <link rel="stylesheet" href="static/css/variables.css">
+  <link rel="stylesheet" href="static/css/layout.css">
+  <link rel="stylesheet" href="static/css/components.css">
+  <link rel="stylesheet" href="static/css/animations.css">
+</head>
+
+<body>
+  <div class="app-bar">
+    <div class="app-title">IUPAC Compounds Viewer</div>
+    <div class="app-actions">
+      <div class="user-badge animate-in">
+        <div class="user-avatar">SA</div>
+        <span id="username">shubhamakshit</span>
+      </div>
+      <button id="settings-btn" class="icon-button" aria-label="Settings">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="material-symbols-outlined">dark_mode</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card animate-in">
+      <div class="card-header">
+        <h2 class="section-title">Import Compounds</h2>
+        <div class="tabs">
+          <button class="tab-button" data-tab="manual-tab">Manual Input</button>
+          <button class="tab-button active" data-tab="api-tab">API Generator</button>
+        </div>
+      </div>
+      
+      <div id="manual-tab" class="tab-content">
+        <div class="input-container">
+          <label class="input-label">JSON Data</label>
+          <textarea id="jsonInput" class="md-textarea" placeholder='[{"name": "2-methylbutane"}, {"name": "4-aminobenzoic acid"}]'></textarea>
+        </div>
+        <div class="button-group">
+          <button id="clearBtn" class="md-button md-button-outlined">
+            <span class="material-symbols-outlined">delete</span>
+            Clear
+          </button>
+          <button id="renderBtn" class="md-button md-button-filled pulse-animation">
+            <span class="material-symbols-outlined">science</span>
+            Render Compounds
+          </button>
+          <button id="helpBtn" class="md-button md-button-outlined">
+            <span class="material-symbols-outlined">help</span>
+            How It Works
+          </button>
+        </div>
+      </div>
+      
+      <div id="api-tab" class="tab-content active">
+        <div class="form-grid">
+          <div class="input-container">
+            <label class="input-label">Compound Type</label>
+            <select id="compound-type" class="md-select">
+              <option value="aromatic">Aromatic</option>
+              <option value="aliphatic">Aliphatic</option>
+              <option value="heterocyclic">Heterocyclic</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+          
+          <div class="input-container">
+            <label class="input-label">Number of Compounds</label>
+            <input type="number" id="compound-number" class="md-input" min="1" max="20" value="5">
+          </div>
+          
+          <div class="input-container">
+            <label class="input-label">Min Carbon Atoms</label>
+            <input type="number" id="min-carbon" class="md-input" min="1" max="30" value="8">
+          </div>
+        </div>
+        
+        <div class="input-container">
+          <label class="input-label">Functional Groups</label>
+          <div class="chip-container" id="functional-groups">
+            <div class="chip selected" data-value="carboxylic acid">
+              <span>carboxylic acid</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip selected" data-value="hydroxyl">
+              <span>hydroxyl</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip" data-value="amino">
+              <span>amino</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip" data-value="carbonyl">
+              <span>carbonyl</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip" data-value="alkene">
+              <span>alkene</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="input-container">
+          <label class="input-label">Additional Specifications</label>
+          <input type="text" id="additional-specs" class="md-input" placeholder="e.g., water soluble" value="water soluble">
+        </div>
+        
+        <div class="button-group">
+          <button id="generate-btn" class="md-button md-button-filled">
+            <span class="material-symbols-outlined">autorenew</span>
+            Generate Compounds
+          </button>
+          <button id="save-defaults-btn" class="md-button md-button-outlined">
+            <span class="material-symbols-outlined">bookmark</span>
+            Save as Default
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card animate-in" style="animation-delay: 0.1s;">
+      <h2 class="section-title">Compounds</h2>
+      <div class="feature-tag">
+        <span class="material-symbols-outlined">touch_app</span>
+        Click or tap on compounds to flip and reveal their names
+      </div>
+      
+      <div class="button-group">
+        <button id="flipAllBtn" class="md-button md-button-outlined">
+          <span class="material-symbols-outlined">flip</span>
+          Flip All Cards
+        </button>
+        <button id="resetViewBtn" class="md-button md-button-outlined">
+          <span class="material-symbols-outlined">restart_alt</span>
+          Reset View
+        </button>
+        <button id="randomizeBtn" class="md-button md-button-outlined">
+          <span class="material-symbols-outlined">shuffle</span>
+          Shuffle
+        </button>
+        <button id="quizModeBtn" class="md-button md-button-outlined">
+          <span class="material-symbols-outlined">quiz</span>
+          Quiz Mode
+        </button>
+      </div>
+      
+      <div id="compound-list" class="compounds-grid"></div>
+    </div>
+  </div>
+
+  <button id="back-to-top" class="fab">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <div id="snackbar" class="snackbar">
+    <div id="snackbar-content">Copied to clipboard!</div>
+  </div>
+  
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content animate-in">
+      <span class="modal-close" id="closeModal">&times;</span>
+      <h3 class="modal-title">How to Use the IUPAC Compounds Viewer</h3>
+      <div class="modal-body">
+        <p><strong>1. Import your compounds</strong><br>
+        You can either paste a JSON array of compound names or use the API Generator to create compounds.</p>
+        <p><strong>2. Flip to reveal</strong><br>
+        Click on any compound card to flip it and reveal the IUPAC name.</p>
+        <p><strong>3. Keyboard navigation</strong><br>
+        You can use the spacebar to flip the focused card or use Tab to navigate between cards.</p>
+        <p><strong>4. Quiz Mode</strong><br>
+        Test your knowledge in an interactive guessing game.</p>
+        <p><strong>Example JSON format:</strong></p>
+        <pre class="code-block">
+[
+  {"name": "2-methylbutane"},
+  {"name": "4-aminobenzoic acid"}
+]</pre>
+      </div>
+      <button id="closeModalBtn" class="md-button md-button-filled">Got it</button>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-content animate-in">
+      <span class="modal-close" id="closeSettingsModal">&times;</span>
+      <h3 class="modal-title">Settings</h3>
+      <div class="modal-body">
+        <div class="input-container">
+          <label class="input-label">API Base URL</label>
+          <input type="text" id="api-base-url" class="md-input" value="http://localhost:5000">
+        </div>
+        
+        <h4 class="settings-subtitle">Default API Parameters</h4>
+        
+        <div class="form-grid">
+          <div class="input-container">
+            <label class="input-label">Compound Type</label>
+            <select id="default-compound-type" class="md-select">
+              <option value="aromatic">Aromatic</option>
+              <option value="aliphatic">Aliphatic</option>
+              <option value="heterocyclic">Heterocyclic</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+          
+          <div class="input-container">
+            <label class="input-label">Number of Compounds</label>
+            <input type="number" id="default-compound-number" class="md-input" min="1" max="20" value="5">
+          </div>
+          
+          <div class="input-container">
+            <label class="input-label">Min Carbon Atoms</label>
+            <input type="number" id="default-min-carbon" class="md-input" min="1" max="30" value="8">
+          </div>
+        </div>
+        
+        <div class="input-container">
+          <label class="input-label">Default Functional Groups</label>
+          <div class="chip-container" id="default-functional-groups">
+            <div class="chip selected" data-value="carboxylic acid">
+              <span>carboxylic acid</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip selected" data-value="hydroxyl">
+              <span>hydroxyl</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip" data-value="amino">
+              <span>amino</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip" data-value="carbonyl">
+              <span>carbonyl</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+            <div class="chip" data-value="alkene">
+              <span>alkene</span>
+              <span class="material-symbols-outlined chip-close">close</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="input-container">
+          <label class="input-label">Default Additional Specifications</label>
+          <input type="text" id="default-additional-specs" class="md-input" placeholder="e.g., water soluble" value="water soluble">
+        </div>
+      </div>
+      <div class="button-group">
+        <button id="reset-settings-btn" class="md-button md-button-outlined">
+          <span class="material-symbols-outlined">restore</span>
+          Reset to Defaults
+        </button>
+        <button id="save-settings-btn" class="md-button md-button-filled">
+          <span class="material-symbols-outlined">save</span>
+          Save Settings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div id="quizModal" class="modal">
+    <div class="modal-content animate-in">
+      <span class="modal-close" id="closeQuizModal">&times;</span>
+      <h3 class="modal-title">IUPAC Name Quiz</h3>
+      <div class="modal-body">
+        <p>What is the IUPAC name of this compound?</p>
+        <div id="quiz-compound-image" class="quiz-image"></div>
+        <div class="input-container">
+          <label class="input-label">Your Answer</label>
+          <input type="text" id="quiz-answer" class="md-input" placeholder="Type IUPAC name...">
+        </div>
+        <div id="quiz-result" class="quiz-result"></div>
+      </div>
+      <div class="button-group">
+        <button id="skipQuizBtn" class="md-button md-button-outlined">Skip</button>
+        <button id="checkAnswerBtn" class="md-button md-button-filled">Check Answer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Modal -->
+  <div id="loadingModal" class="modal">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Generating compounds...</p>
+    </div>
+  </div>
+
+  <div id="confetti-container"></div>
+
+  <div class="date-display">
+    Current Date (UTC): <span id="current-date">2025-04-14 12:09:27</span>
+  </div>
+
+  <!-- Split JavaScript files - moved to static directory -->
+  <script src="static/js/theme.js"></script>
+  <script src="static/js/ui-components.js"></script>
+  <script src="static/js/compounds.js"></script>
+  <script src="static/js/quiz.js"></script>
+  <script src="static/js/animations.js"></script>
+  <script src="static/js/api.js"></script>
+  <script src="static/js/settings.js"></script>
+  <script src="static/js/main.js"></script>
+</body>
+</html>
