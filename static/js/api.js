@@ -2,7 +2,7 @@
 (function() {
   // Store API settings
   let apiSettings = {
-    baseUrl: window.location.origin,
+    baseUrl: 'https://mol-prac-01.vercel.app/',
   };
 
   // Function to generate compounds via API

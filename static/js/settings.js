@@ -9,7 +9,7 @@
   
   // Default settings
   const defaultSettings = {
-    apiBaseUrl: 'http://localhost:5000',
+    apiBaseUrl: window.location.origin,
     compoundType: 'aromatic',
     compoundNumber: 5,
     minCarbon: 8,
@@ -177,6 +177,130 @@
   
   // Load settings on startup
   window.addEventListener('DOMContentLoaded', loadSettings);
+
+  // Add functionality for custom functional groups
+  const newFunctionalGroup = document.getElementById('new-functional-group');
+  const addFunctionalGroup = document.getElementById('add-functional-group');
+
+  // Function to create new chip
+  function createFunctionalGroupChip(groupName) {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.dataset.value = groupName.toLowerCase();
+    chip.innerHTML = `
+      <span>${groupName}</span>
+      <span class="material-symbols-outlined chip-close" role="button" aria-label="Remove">close</span>
+    `;
+
+    // Add delete functionality
+    chip.querySelector('.chip-close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeFunctionalGroup(chip);
+    });
+
+    return chip;
+  }
+
+  // Function to add new functional group
+  function addNewFunctionalGroup() {
+    const groupName = newFunctionalGroup.value.trim();
+    if (!groupName) return;
+
+    // Check if group already exists
+    const existingGroups = document.querySelectorAll('#default-functional-groups .chip');
+    for (const group of existingGroups) {
+      if (group.dataset.value === groupName.toLowerCase()) {
+        window.showSnackbar('This functional group already exists');
+        return;
+      }
+    }
+
+    // Add to both settings and main form
+    const settingsContainer = document.getElementById('default-functional-groups');
+    const mainContainer = document.getElementById('functional-groups');
+
+    const settingsChip = createFunctionalGroupChip(groupName);
+    const mainChip = createFunctionalGroupChip(groupName);
+
+    settingsContainer.appendChild(settingsChip);
+    mainContainer.appendChild(mainChip);
+
+    // Clear input
+    newFunctionalGroup.value = '';
+    window.showSnackbar('Functional group added');
+
+    // Add click handler for selection
+    settingsChip.addEventListener('click', () => {
+      settingsChip.classList.toggle('selected');
+    });
+
+    mainChip.addEventListener('click', () => {
+      mainChip.classList.toggle('selected');
+    });
+
+    // Save to localStorage
+    saveFunctionalGroups();
+  }
+
+  // Function to remove functional group
+  function removeFunctionalGroup(chip) {
+    const groupName = chip.dataset.value;
+    
+    // Remove from both settings and main form
+    document.querySelectorAll(`[data-value="${groupName}"]`).forEach(el => {
+      el.remove();
+    });
+
+    window.showSnackbar('Functional group removed');
+    saveFunctionalGroups();
+  }
+
+  // Function to save functional groups to localStorage
+  function saveFunctionalGroups() {
+    const groups = Array.from(document.querySelectorAll('#default-functional-groups .chip'))
+      .map(chip => chip.dataset.value);
+    localStorage.setItem('customFunctionalGroups', JSON.stringify(groups));
+  }
+
+  // Load custom functional groups on startup
+  function loadCustomFunctionalGroups() {
+    try {
+      const savedGroups = JSON.parse(localStorage.getItem('customFunctionalGroups') || '[]');
+      savedGroups.forEach(groupName => {
+        if (groupName && typeof groupName === 'string') {
+          const settingsContainer = document.getElementById('default-functional-groups');
+          const mainContainer = document.getElementById('functional-groups');
+          
+          const settingsChip = createFunctionalGroupChip(groupName);
+          const mainChip = createFunctionalGroupChip(groupName);
+          
+          settingsContainer.appendChild(settingsChip);
+          mainContainer.appendChild(mainChip);
+        }
+      });
+    } catch (e) {
+      console.error('Error loading custom functional groups:', e);
+    }
+  }
+
+  // Event listeners
+  addFunctionalGroup.addEventListener('click', addNewFunctionalGroup);
+  newFunctionalGroup.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      addNewFunctionalGroup();
+    }
+  });
+
+  // Load custom groups on startup
+  document.addEventListener('DOMContentLoaded', loadCustomFunctionalGroups);
+
+  // Update saveSettings function to include custom groups
+  const originalSaveSettings = window.saveSettings;
+  window.saveSettings = function() {
+    originalSaveSettings();
+    saveFunctionalGroups();
+  };
+
 })();
 
 (function() {

@@ -28,7 +28,7 @@
   --md-on-error: #FFFFFF;
   --md-success: #2E7D32;
   --md-on-success: #FFFFFF;
-  
+  --md-outline-rgb: 121, 116, 126; /* RGB values for --md-outline */
 
   /* Typography */
   --md-font-display: 'Inter', sans-serif;
@@ -45,6 +45,19 @@
     --md-on-primary-blue: #FFFFFF;
     --md-primary-green: #43A047;
     --md-on-primary-green: #FFFFFF;
+
+  /* Ghibli-inspired backgrounds */
+  --bg-light: linear-gradient(135deg, #f5f7fa 0%, #fffbfe 100%);
+  --bg-pattern-light: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM45 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM15 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7z' fill='%236750A4' fill-opacity='0.03'/%3E%3C/svg%3E");
+  
+  --bg-dark: linear-gradient(135deg, #1a1b1f 0%, #1C1B1F 100%);
+  --bg-pattern-dark: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM45 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM15 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7z' fill='%23D0BCFF' fill-opacity='0.03'/%3E%3C/svg%3E");
+  
+  --bg-blue: linear-gradient(135deg, #e3f2fd 0%, #f5f7fa 100%);
+  --bg-pattern-blue: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM45 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM15 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7z' fill='%231E88E5' fill-opacity='0.03'/%3E%3C/svg%3E");
+  
+  --bg-green: linear-gradient(135deg, #e8f5e9 0%, #f5f7fa 100%);
+  --bg-pattern-green: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM45 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7zM15 5c1.5 0 2.7 1.2 2.7 2.7 0 1.5-1.2 2.7-2.7 2.7-1.5 0-2.7-1.2-2.7-2.7 0-1.5 1.2-2.7 2.7-2.7z' fill='%2343A047' fill-opacity='0.03'/%3E%3C/svg%3E");
 }
 
 [data-theme="dark"] {
@@ -77,9 +90,8 @@
   --md-on-error: #601410;
   --md-success: #66BB6A;
   --md-on-success: #0E3E10;
+  --md-outline-rgb: 147, 143, 153; /* RGB values for dark theme outline */
 }
-
-
 
 [data-theme="blue"] {
   --md-primary: var(--md-primary-blue);
@@ -89,4 +101,25 @@
 [data-theme="green"] {
   --md-primary: var(--md-primary-green);
   --md-on-primary: var(--md-on-primary-green);
+}
+
+/* Theme-specific backgrounds */
+[data-theme="light"] body {
+  background: var(--bg-pattern-light), var(--bg-light);
+  background-attachment: fixed;
+}
+
+[data-theme="dark"] body {
+  background: var(--bg-pattern-dark), var(--bg-dark);
+  background-attachment: fixed;
+}
+
+[data-theme="blue"] body {
+  background: var(--bg-pattern-blue), var(--bg-blue);
+  background-attachment: fixed;
+}
+
+[data-theme="green"] body {
+  background: var(--bg-pattern-green), var(--bg-green);
+  background-attachment: fixed;
 }

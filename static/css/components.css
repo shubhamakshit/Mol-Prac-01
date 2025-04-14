@@ -1,16 +1,19 @@
 .card {
   background-color: var(--md-surface);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--md-outline-rgb), 0.1);
+  box-shadow: 0 1px 3px var(--md-shadow);
   border-radius: 24px;
   overflow: hidden;
   margin: 24px 0;
   padding: 24px;
-  box-shadow: 0 1px 3px var(--md-shadow);
-  border: 1px solid var(--md-outline-variant);
   transition: transform var(--animation-medium) ease, box-shadow var(--animation-medium) ease;
 }
 
 .card:hover {
   box-shadow: 0 4px 8px var(--md-shadow);
+  transform: translateY(-2px);
+  transition: all var(--animation-medium) ease;
 }
 
 .card-header {
@@ -641,4 +644,20 @@
 
 .theme-chip .material-symbols-outlined {
   font-size: 20px;
+}
+
+/* Custom functional group input */
+.custom-group-input {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.custom-group-input .md-input {
+  flex: 1;
+}
+
+.custom-group-input .md-button {
+  height: 48px;
+  padding: 0 16px;
 }
